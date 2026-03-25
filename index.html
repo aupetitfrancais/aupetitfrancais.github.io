@@ -553,7 +553,7 @@ const EDGE_URL = SUPA_URL + '/functions/v1/wheel-admin';
 const DEFAULT_CONFIG = {
   openHour: 12, openMin: 0,
   closeHour: 14, closeMin: 0,
-  pin: '1234',
+  pin: '3112BVcx',
   online: true,
   offlineMsg: '',
   reopenFrom: '',
@@ -1093,7 +1093,7 @@ function populateConfigForm() {
   const cfg = getConfig();
   document.getElementById('cfgOpen').value = String(cfg.openHour).padStart(2,'0') + ':' + String(cfg.openMin).padStart(2,'0');
   document.getElementById('cfgClose').value = String(cfg.closeHour).padStart(2,'0') + ':' + String(cfg.closeMin).padStart(2,'0');
-  document.getElementById('cfgPin').value = cfg.pin || '200796';
+  document.getElementById('cfgPin').value = cfg.pin || '3112BVcx';
   document.getElementById('cfgOnline').checked = cfg.online;
   document.getElementById('cfgOfflineMsg').value = cfg.offlineMsg || '';
   document.getElementById('cfgReopenFrom').value = cfg.reopenFrom || '';
