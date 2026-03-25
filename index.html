@@ -181,6 +181,31 @@ canvas#wheel.spinning { filter:drop-shadow(0 0 40px rgba(245,200,66,.7)); }
 /* ── CONFETTI ── */
 .confetti-piece { position:fixed; width:8px; height:8px; border-radius:2px; opacity:0; pointer-events:none; z-index:200; }
 
+
+/* ── ADMIN TOGGLE & NEW SECTIONS ── */
+.toggle-wrap { display:flex; align-items:center; gap:.8rem; }
+.toggle-switch { position:relative; width:50px; height:26px; cursor:pointer; }
+.toggle-switch input { opacity:0; width:0; height:0; }
+.toggle-slider { position:absolute; inset:0; background:rgba(192,57,43,.6); border-radius:13px; transition:.3s; }
+.toggle-slider::before { content:''; position:absolute; width:20px; height:20px; left:3px; bottom:3px; background:var(--cream); border-radius:50%; transition:.3s; }
+.toggle-switch input:checked+.toggle-slider { background:rgba(26,138,74,.6); }
+.toggle-switch input:checked+.toggle-slider::before { transform:translateX(24px); }
+.toggle-status { font-size:.9rem; font-weight:600; }
+.toggle-status.online { color:#4ade80; }
+.toggle-status.offline { color:#f87171; }
+
+.config-textarea { background:rgba(255,255,255,.07); border:1px solid rgba(245,200,66,.25); border-radius:8px; padding:.55rem .8rem; color:var(--cream); font-size:.9rem; outline:none; width:100%; min-height:60px; resize:vertical; font-family:'Cormorant Garamond',serif; }
+.config-textarea:focus { border-color:var(--gold); }
+
+.prize-editor-row { display:grid; grid-template-columns:50px 1fr 70px 70px 30px; gap:.5rem; align-items:center; margin-bottom:.5rem; }
+.prize-editor-row input { background:rgba(255,255,255,.07); border:1px solid rgba(245,200,66,.25); border-radius:6px; padding:.4rem .5rem; color:var(--cream); font-size:.85rem; outline:none; }
+.prize-editor-row input:focus { border-color:var(--gold); }
+.prize-editor-row .remove-prize { background:rgba(192,57,43,.3); border:1px solid rgba(192,57,43,.5); color:#f87171; border-radius:50%; width:24px; height:24px; cursor:pointer; font-size:.9rem; display:flex; align-items:center; justify-content:center; transition:.2s; }
+.prize-editor-row .remove-prize:hover { background:rgba(192,57,43,.5); }
+.add-prize-btn { padding:.5rem 1rem; background:rgba(26,138,74,.2); border:1px solid rgba(26,138,74,.4); border-radius:20px; color:#4ade80; cursor:pointer; font-size:.82rem; transition:all .2s; margin-top:.5rem; }
+.add-prize-btn:hover { background:rgba(26,138,74,.3); }
+.prize-header-row { display:grid; grid-template-columns:50px 1fr 70px 70px 30px; gap:.5rem; margin-bottom:.5rem; font-size:.72rem; color:var(--cream); opacity:.5; text-transform:uppercase; letter-spacing:.05em; }
+
 /* ── ADMIN LINK ── */
 .admin-link { position:fixed; bottom:1rem; right:1rem; z-index:50; font-size:.75rem; color:rgba(255,255,255,.15); cursor:pointer; transition:color .3s; text-decoration:none; }
 .admin-link:hover { color:rgba(245,200,66,.5); }
@@ -262,6 +287,13 @@ tr:hover td { background:rgba(255,255,255,.03); }
   .admin-search { width:130px; }
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SUPA_URL = 'https://kvtfzffkckdqmsqwaxvt.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt2dGZ6ZmZrY2tkcW1zcXdheHZ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNTk5NTMsImV4cCI6MjA4OTkzNTk1M30.mzp4FGe_hOU7FpN6-x8E44GAfDqCA2WzTbO1j4g8NwM';
+const supaClient = supabase.createClient(SUPA_URL, SUPA_KEY);
+const EDGE_URL = SUPA_URL + '/functions/v1/wheel-admin';
+</script>
 </head>
 <body>
 
@@ -344,9 +376,53 @@ tr:hover td { background:rgba(255,255,255,.03); }
     <div class="validate-result" id="validateResult"></div>
   </div>
 
+  <!-- Online/Offline Toggle -->
+  <div class="config-section">
+    <h3>🔌 Estado de la rueda</h3>
+    <div class="toggle-wrap">
+      <label class="toggle-switch">
+        <input type="checkbox" id="cfgOnline" onchange="toggleOnlinePreview()">
+        <span class="toggle-slider"></span>
+      </label>
+      <span class="toggle-status" id="onlineStatus">En línea</span>
+    </div>
+    <div id="offlineOptions" style="margin-top:.8rem;display:none">
+      <div class="config-field" style="margin-bottom:.6rem">
+        <span class="config-label">Mensaje cuando está fuera de línea</span>
+        <textarea class="config-textarea" id="cfgOfflineMsg" placeholder="Ej: ¡Vuelve pronto! La rueda estará de vuelta..."></textarea>
+      </div>
+      <div class="config-row">
+        <div class="config-field">
+          <span class="config-label">Reapertura desde</span>
+          <input class="config-input" id="cfgReopenFrom" type="date">
+        </div>
+        <div class="config-field">
+          <span class="config-label">Reapertura hasta</span>
+          <input class="config-input" id="cfgReopenTo" type="date">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Active Dates -->
+  <div class="config-section">
+    <h3>📅 Fechas activas de la rueda</h3>
+    <div class="config-row">
+      <div class="config-field">
+        <span class="config-label">Fecha de inicio</span>
+        <input class="config-input" id="cfgDateFrom" type="date">
+      </div>
+      <div class="config-field">
+        <span class="config-label">Fecha de fin</span>
+        <input class="config-input" id="cfgDateTo" type="date">
+      </div>
+    </div>
+    <p style="margin-top:.5rem;font-size:.78rem;color:var(--cream);opacity:.5">Deja vacío para que la rueda esté activa sin límite de fecha.</p>
+  </div>
+
   <!-- Config -->
   <div class="config-section">
-    <h3>⚙️ Configuración</h3>
+    <h3>⚙️ Configuración general</h3>
     <div class="config-row">
       <div class="config-field">
         <span class="config-label">Hora de apertura</span>
@@ -360,9 +436,29 @@ tr:hover td { background:rgba(255,255,255,.03); }
         <span class="config-label">PIN admin</span>
         <input class="config-input" id="cfgPin" type="password" placeholder="••••">
       </div>
+      <div class="config-field">
+        <span class="config-label">Jours de blocage après un jeu</span>
+        <input class="config-input" id="cfgCooldownDays" type="number" min="1" max="365" value="30" placeholder="30">
+      </div>
     </div>
     <button class="save-config-btn" onclick="saveConfig()">💾 Guardar</button>
     <span id="cfgSaved" style="margin-left:.8rem;font-size:.85rem;color:#4ade80;display:none">✓ ¡Guardado!</span>
+  </div>
+
+  <!-- Prize Editor -->
+  <div class="config-section">
+    <h3>🎁 Modifier les articles et probabilités</h3>
+    <div class="prize-header-row">
+      <span>Emoji</span>
+      <span>Nom du prix</span>
+      <span>% prob</span>
+      <span>Perdant?</span>
+      <span></span>
+    </div>
+    <div id="prizeEditorList"></div>
+    <button class="add-prize-btn" onclick="addPrizeRow()">+ Ajouter un prix</button>
+    <button class="save-config-btn" onclick="savePrizes()" style="margin-left:.5rem">💾 Enregistrer les prix</button>
+    <span id="prizeSaved" style="margin-left:.8rem;font-size:.85rem;color:#4ade80;display:none">✓ Prix enregistrés!</span>
   </div>
 
   <!-- Winners table -->
@@ -457,19 +553,83 @@ tr:hover td { background:rgba(255,255,255,.03); }
 const DEFAULT_CONFIG = {
   openHour: 12, openMin: 0,
   closeHour: 14, closeMin: 0,
-  pin: '1234'   // ← CHANGEZ CE PIN !
+  pin: '1234',
+  online: true,
+  offlineMsg: '',
+  reopenFrom: '',
+  reopenTo: '',
+  dateFrom: '',
+  dateTo: '',
+  cooldownDays: 30
 };
 
+let _cachedConfig = null;
+
 function getConfig() {
+  if(_cachedConfig) return _cachedConfig;
   try { return JSON.parse(localStorage.getItem('rdf_config')) || DEFAULT_CONFIG; }
   catch { return DEFAULT_CONFIG; }
 }
-function setConfig(c) { localStorage.setItem('rdf_config', JSON.stringify(c)); }
+function setConfig(c) { 
+  _cachedConfig = c;
+  localStorage.setItem('rdf_config', JSON.stringify(c)); 
+}
+
+async function loadConfigFromDB() {
+  try {
+    const { data, error } = await supaClient.from('wheel_config').select('*').eq('id', 1).single();
+    if(error || !data) return;
+    const cfg = {
+      openHour: data.open_hour, openMin: data.open_min,
+      closeHour: data.close_hour, closeMin: data.close_min,
+      pin: data.pin, online: data.online,
+      offlineMsg: data.offline_msg || '',
+      reopenFrom: data.reopen_from || '',
+      reopenTo: data.reopen_to || '',
+      dateFrom: data.date_from || '',
+      dateTo: data.date_to || '',
+      cooldownDays: data.cooldown_days || 30
+    };
+    setConfig(cfg);
+    return cfg;
+  } catch(e) { console.error('Failed to load config from DB:', e); }
+}
+
+async function loadPrizesFromDB() {
+  try {
+    const { data, error } = await supaClient.from('wheel_prizes').select('*').order('sort_order');
+    if(error || !data || !data.length) return;
+    PRIZES = data.map(p => ({
+      label: p.label, emoji: p.emoji, color: p.color,
+      textColor: p.text_color, prob: p.prob, lose: p.lose
+    }));
+    POOL = buildPool();
+    setPrizesStore(PRIZES);
+  } catch(e) { console.error('Failed to load prizes from DB:', e); }
+}
+
+async function loadTicketsFromDB() {
+  try {
+    const { data, error } = await supaClient.from('wheel_tickets').select('*').order('played_at', { ascending: false });
+    if(error || !data) return;
+    const tickets = data.map(t => ({
+      id: t.id,
+      date: t.date_str,
+      code: t.code,
+      prize: t.prize,
+      isWin: t.is_win,
+      used: t.used,
+      fp: (t.fingerprint || '').slice(0,8) + '…'
+    }));
+    setTickets(tickets);
+    return tickets;
+  } catch(e) { console.error('Failed to load tickets from DB:', e); }
+}
 
 // ═══════════════════════════════════════════
 //  PRIZES
 // ═══════════════════════════════════════════
-const PRIZES = [
+const DEFAULT_PRIZES = [
   { label:"Café gratis",         emoji:"☕", color:"#6B3F1E", textColor:"#fff",     prob:18 },
   { label:"Croissant gratis",    emoji:"🥐", color:"#C9962A", textColor:"#fff",     prob:16 },
   { label:"Pan de chocolate",    emoji:"🍫", color:"#3D1F0D", textColor:"#F5C842",  prob:14 },
@@ -481,12 +641,21 @@ const PRIZES = [
   { label:"Sin suerte",          emoji:"😢", color:"#1A1A2E", textColor:"#444",     prob:12, lose:true },
 ];
 
+const PRIZES_KEY = 'rdf_prizes';
+function getPrizes() {
+  try { const p = JSON.parse(localStorage.getItem(PRIZES_KEY)); return (p && p.length) ? p : DEFAULT_PRIZES; }
+  catch { return DEFAULT_PRIZES; }
+}
+function setPrizesStore(p) { localStorage.setItem(PRIZES_KEY, JSON.stringify(p)); }
+
+let PRIZES = getPrizes();
+
 function buildPool() {
   let p = [];
   PRIZES.forEach((pr,i) => { for(let j=0;j<pr.prob;j++) p.push(i); });
   return p;
 }
-const POOL = buildPool();
+let POOL = buildPool();
 
 // ═══════════════════════════════════════════
 //  STORAGE HELPERS
@@ -523,12 +692,33 @@ function getMonthKey() {
   return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}`;
 }
 
-function hasPlayedThisMonth() {
+function hasPlayedRecently() {
   const fp = getFingerprint();
-  const mk = getMonthKey();
   const plays = getPlays();
-  return !!(plays[fp] && plays[fp].month === mk);
+  if(!plays[fp] || !plays[fp].date) return false;
+  const cfg = getConfig();
+  const cooldownDays = cfg.cooldownDays || 30;
+  const lastPlay = new Date(plays[fp].date);
+  const now = new Date();
+  const diffMs = now - lastPlay;
+  const diffDays = diffMs / (1000*60*60*24);
+  return diffDays < cooldownDays;
 }
+
+function getRemainingCooldown() {
+  const fp = getFingerprint();
+  const plays = getPlays();
+  if(!plays[fp] || !plays[fp].date) return null;
+  const cfg = getConfig();
+  const cooldownDays = cfg.cooldownDays || 30;
+  const lastPlay = new Date(plays[fp].date);
+  const nextPlay = new Date(lastPlay.getTime() + cooldownDays*24*60*60*1000);
+  const now = new Date();
+  return Math.max(0, nextPlay - now);
+}
+
+// Keep backward compat
+function hasPlayedThisMonth() { return hasPlayedRecently(); }
 
 function getLastPlayInfo() {
   const fp = getFingerprint();
@@ -544,10 +734,12 @@ function recordPlay(prizeLabel, code, isWin) {
   plays[fp] = { month: mk, date: now.toISOString(), prize: prizeLabel, code, isWin };
   setPlays(plays);
 
+  const dateStr = now.toLocaleDateString('es-CO',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+
   // Also save to tickets list
   const tickets = getTickets();
   tickets.unshift({
-    date: now.toLocaleDateString('es-CO',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),
+    date: dateStr,
     code,
     prize: prizeLabel,
     isWin,
@@ -555,6 +747,16 @@ function recordPlay(prizeLabel, code, isWin) {
     fp: fp.slice(0,8)+'…'
   });
   setTickets(tickets);
+
+  // Save to Supabase
+  supaClient.from('wheel_tickets').insert({
+    date_str: dateStr,
+    code,
+    prize: prizeLabel,
+    is_win: isWin,
+    used: false,
+    fingerprint: fp
+  }).then(({error}) => { if(error) console.error('DB insert error:', error); });
 }
 
 // ═══════════════════════════════════════════
@@ -562,7 +764,14 @@ function recordPlay(prizeLabel, code, isWin) {
 // ═══════════════════════════════════════════
 function isOpen() {
   const cfg = getConfig();
+  // Check online toggle
+  if(cfg.online === false) return false;
+  // Check date range
   const now = new Date();
+  const today = now.toISOString().slice(0,10);
+  if(cfg.dateFrom && today < cfg.dateFrom) return false;
+  if(cfg.dateTo && today > cfg.dateTo) return false;
+  // Check time
   const h = now.getHours(), m = now.getMinutes();
   const totalMin = h*60+m;
   const openMin = cfg.openHour*60+cfg.openMin;
@@ -573,6 +782,23 @@ function isOpen() {
 function getNextOpenMsg() {
   const cfg = getConfig();
   const pad = n => String(n).padStart(2,'0');
+  if(cfg.online === false) {
+    let msg = cfg.offlineMsg || '¡Vuelve más tarde! La operación no está disponible por el momento.';
+    if(cfg.reopenFrom && cfg.reopenTo) {
+      msg += '\n📅 La rueda estará abierta del ' + cfg.reopenFrom + ' al ' + cfg.reopenTo + '.';
+    } else if(cfg.reopenFrom) {
+      msg += '\n📅 La rueda reabrirá el ' + cfg.reopenFrom + '.';
+    }
+    return msg;
+  }
+  const now = new Date();
+  const today = now.toISOString().slice(0,10);
+  if(cfg.dateFrom && today < cfg.dateFrom) {
+    return '📅 La rueda estará disponible a partir del ' + cfg.dateFrom + '.';
+  }
+  if(cfg.dateTo && today > cfg.dateTo) {
+    return '📅 La operación ha terminado. ¡Gracias por participar!';
+  }
   return `⏰ Abierto todos los días de ${pad(cfg.openHour)}h${pad(cfg.openMin)} a ${pad(cfg.closeHour)}h${pad(cfg.closeMin)}`;
 }
 
@@ -595,6 +821,15 @@ function init() {
   const pad = n => String(n).padStart(2,'0');
   document.getElementById('cfgOpen').value  = `${pad(cfg.openHour)}:${pad(cfg.openMin)}`;
   document.getElementById('cfgClose').value = `${pad(cfg.closeHour)}:${pad(cfg.closeMin)}`;
+  document.getElementById('cfgOnline').checked = cfg.online !== false;
+  document.getElementById('cfgOfflineMsg').value = cfg.offlineMsg || '';
+  document.getElementById('cfgReopenFrom').value = cfg.reopenFrom || '';
+  document.getElementById('cfgReopenTo').value = cfg.reopenTo || '';
+  document.getElementById('cfgDateFrom').value = cfg.dateFrom || '';
+  document.getElementById('cfgDateTo').value = cfg.dateTo || '';
+  document.getElementById('cfgCooldownDays').value = cfg.cooldownDays || 30;
+  toggleOnlinePreview();
+  renderPrizeEditor();
 
   if (isOpen()) {
     showScreen('screenGame');
@@ -637,6 +872,7 @@ function buildStuds() {
 
 function buildPrizeGrid() {
   const el = document.getElementById('prizeGrid');
+  el.innerHTML = '';
   PRIZES.forEach(p => {
     if(p.lose) return;
     const d = document.createElement('div');
@@ -789,10 +1025,8 @@ function closeLose(){ document.getElementById('modalLose').classList.remove('sho
 //  ALREADY PLAYED
 // ═══════════════════════════════════════════
 function showAlreadyModal(){
-  // Calculate time until next month
-  const now = new Date();
-  const nextMonth = new Date(now.getFullYear(), now.getMonth()+1, 1, 12, 0, 0);
-  const diff = nextMonth - now;
+  const diff = getRemainingCooldown();
+  if(diff === null || diff <= 0) { return; }
   const days = Math.floor(diff/(1000*60*60*24));
   const hours = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
   const mins = Math.floor((diff%(1000*60*60))/(1000*60));
@@ -835,24 +1069,47 @@ function openAdmin(){
   document.getElementById('pinModal').style.display='flex';
 }
 function closePinModal(){ document.getElementById('pinModal').style.display='none'; }
-function checkPin(){
+async function checkPin(){
+  // Always reload config from DB first to validate PIN against latest value
+  _cachedConfig = null;
+  await loadConfigFromDB();
   const cfg = getConfig();
   const v = document.getElementById('pinInput').value;
   if(v === cfg.pin){
     closePinModal();
-    renderAdmin();
+    // Force reload prizes from DB too
+    await loadPrizesFromDB();
+    await renderAdmin();
+    renderPrizeEditor();
+    populateConfigForm();
     showScreen('screenAdmin');
   } else {
     document.getElementById('pinError').style.display='block';
     document.getElementById('pinInput').value='';
   }
 }
+
+function populateConfigForm() {
+  const cfg = getConfig();
+  document.getElementById('cfgOpen').value = String(cfg.openHour).padStart(2,'0') + ':' + String(cfg.openMin).padStart(2,'0');
+  document.getElementById('cfgClose').value = String(cfg.closeHour).padStart(2,'0') + ':' + String(cfg.closeMin).padStart(2,'0');
+  document.getElementById('cfgPin').value = cfg.pin || '200796';
+  document.getElementById('cfgOnline').checked = cfg.online;
+  document.getElementById('cfgOfflineMsg').value = cfg.offlineMsg || '';
+  document.getElementById('cfgReopenFrom').value = cfg.reopenFrom || '';
+  document.getElementById('cfgReopenTo').value = cfg.reopenTo || '';
+  document.getElementById('cfgDateFrom').value = cfg.dateFrom || '';
+  document.getElementById('cfgDateTo').value = cfg.dateTo || '';
+  document.getElementById('cfgCooldownDays').value = cfg.cooldownDays || 30;
+  toggleOnlinePreview();
+}
 function goBack(){
   if(isOpen()) showScreen('screenGame');
   else showScreen('screenClosed');
 }
 
-function renderAdmin(){
+async function renderAdmin(){
+  await loadTicketsFromDB();
   const tickets = getTickets();
   const wins = tickets.filter(t=>t.isWin);
   const used = tickets.filter(t=>t.used);
@@ -904,7 +1161,19 @@ function renderTable(){
 
 function markUsed(idx){
   const tickets = getTickets();
-  if(tickets[idx]) { tickets[idx].used = true; setTickets(tickets); renderAdmin(); }
+  if(tickets[idx]) { 
+    tickets[idx].used = true; 
+    setTickets(tickets); 
+    renderAdmin();
+    // Update in DB
+    if(tickets[idx].id) {
+      const cfg = getConfig();
+      fetch(EDGE_URL, {
+        method:'POST', headers:{'Content-Type':'application/json','apikey':SUPA_KEY},
+        body: JSON.stringify({ action:'mark_used', pin: cfg.pin, data: { ticketId: tickets[idx].id } })
+      });
+    }
+  }
 }
 
 function checkCode(){
@@ -931,6 +1200,14 @@ function formatCode(input){
   input.value = v;
 }
 
+function toggleOnlinePreview() {
+  const checked = document.getElementById('cfgOnline').checked;
+  document.getElementById('offlineOptions').style.display = checked ? 'none' : 'block';
+  const statusEl = document.getElementById('onlineStatus');
+  statusEl.textContent = checked ? 'En línea' : 'Fuera de línea';
+  statusEl.className = 'toggle-status ' + (checked ? 'online' : 'offline');
+}
+
 function saveConfig(){
   const openVal  = document.getElementById('cfgOpen').value.split(':');
   const closeVal = document.getElementById('cfgClose').value.split(':');
@@ -939,8 +1216,98 @@ function saveConfig(){
   cfg.openHour=parseInt(openVal[0]);  cfg.openMin=parseInt(openVal[1]);
   cfg.closeHour=parseInt(closeVal[0]); cfg.closeMin=parseInt(closeVal[1]);
   if(pin) cfg.pin=pin;
+  cfg.online = document.getElementById('cfgOnline').checked;
+  cfg.offlineMsg = document.getElementById('cfgOfflineMsg').value;
+  cfg.reopenFrom = document.getElementById('cfgReopenFrom').value;
+  cfg.reopenTo = document.getElementById('cfgReopenTo').value;
+  cfg.dateFrom = document.getElementById('cfgDateFrom').value;
+  cfg.dateTo = document.getElementById('cfgDateTo').value;
+  cfg.cooldownDays = parseInt(document.getElementById('cfgCooldownDays').value) || 30;
   setConfig(cfg);
+  
+  // Save to DB
+  fetch(EDGE_URL, {
+    method:'POST', headers:{'Content-Type':'application/json','apikey':SUPA_KEY},
+    body: JSON.stringify({ action:'update_config', pin: cfg.pin, data: {
+      open_hour: cfg.openHour, open_min: cfg.openMin,
+      close_hour: cfg.closeHour, close_min: cfg.closeMin,
+      pin: cfg.pin, online: cfg.online,
+      offline_msg: cfg.offlineMsg,
+      reopen_from: cfg.reopenFrom || null, reopen_to: cfg.reopenTo || null,
+      date_from: cfg.dateFrom || null, date_to: cfg.dateTo || null,
+      cooldown_days: cfg.cooldownDays
+    }})
+  }).then(r=>r.json()).then(r=>{ if(r.error) console.error('Config save error:', r.error); });
+  
   const saved = document.getElementById('cfgSaved');
+  saved.style.display='inline';
+  setTimeout(()=>saved.style.display='none',2000);
+}
+
+// Prize editor
+const PRIZE_COLORS = ['#6B3F1E','#C9962A','#3D1F0D','#D35400','#7FB3C8','#1A8A4A','#E91E8C','#6A1FA0','#1A1A2E','#2E86AB','#A23B72','#F18F01'];
+
+function renderPrizeEditor() {
+  const list = document.getElementById('prizeEditorList');
+  list.innerHTML = '';
+  PRIZES.forEach((p, i) => {
+    const row = document.createElement('div');
+    row.className = 'prize-editor-row';
+    row.innerHTML = `
+      <input type="text" value="${p.emoji}" maxlength="4" style="text-align:center;font-size:1.2rem" data-field="emoji" data-idx="${i}">
+      <input type="text" value="${p.label}" data-field="label" data-idx="${i}">
+      <input type="number" value="${p.prob}" min="1" max="100" data-field="prob" data-idx="${i}">
+      <label style="display:flex;align-items:center;gap:.3rem;color:var(--cream);font-size:.8rem;cursor:pointer">
+        <input type="checkbox" ${p.lose?'checked':''} data-field="lose" data-idx="${i}"> Oui
+      </label>
+      <button class="remove-prize" onclick="removePrize(${i})">×</button>
+    `;
+    list.appendChild(row);
+  });
+}
+
+function addPrizeRow() {
+  const colorIdx = PRIZES.length % PRIZE_COLORS.length;
+  PRIZES.push({ label:'Nouveau prix', emoji:'🎁', color:PRIZE_COLORS[colorIdx], textColor:'#fff', prob:5 });
+  renderPrizeEditor();
+}
+
+function removePrize(idx) {
+  if(PRIZES.length <= 2) { alert('Il faut au moins 2 prix.'); return; }
+  PRIZES.splice(idx, 1);
+  renderPrizeEditor();
+}
+
+function savePrizes() {
+  const rows = document.querySelectorAll('.prize-editor-row');
+  const newPrizes = [];
+  rows.forEach((row, i) => {
+    const emoji = row.querySelector('[data-field="emoji"]').value || '🎁';
+    const label = row.querySelector('[data-field="label"]').value || 'Prix';
+    const prob = parseInt(row.querySelector('[data-field="prob"]').value) || 1;
+    const lose = row.querySelector('[data-field="lose"]').checked;
+    const colorIdx = i % PRIZE_COLORS.length;
+    const existing = PRIZES[i] || {};
+    newPrizes.push({
+      label, emoji, prob, lose: lose || false,
+      color: existing.color || PRIZE_COLORS[colorIdx],
+      textColor: existing.textColor || '#fff'
+    });
+  });
+  PRIZES = newPrizes;
+  POOL = buildPool();
+  setPrizesStore(PRIZES);
+  drawWheel(currentAngle);
+  buildPrizeGrid();
+  
+  // Save to DB
+  const cfg = getConfig();
+  fetch(EDGE_URL, {
+    method:'POST', headers:{'Content-Type':'application/json','apikey':SUPA_KEY},
+    body: JSON.stringify({ action:'update_prizes', pin: cfg.pin, data: { prizes: PRIZES } })
+  }).then(r=>r.json()).then(r=>{ if(r.error) console.error('Prizes save error:', r.error); });
+  
+  const saved = document.getElementById('prizeSaved');
   saved.style.display='inline';
   setTimeout(()=>saved.style.display='none',2000);
 }
@@ -949,6 +1316,12 @@ function clearData(){
   if(confirm('¿Borrar TODO el historial de participaciones? Esta acción es irreversible.')){
     localStorage.removeItem(STORE_KEY);
     localStorage.removeItem(TICKETS_KEY);
+    // Clear in DB
+    const cfg = getConfig();
+    fetch(EDGE_URL, {
+      method:'POST', headers:{'Content-Type':'application/json','apikey':SUPA_KEY},
+      body: JSON.stringify({ action:'clear_data', pin: cfg.pin, data: {} })
+    });
     renderAdmin();
   }
 }
@@ -959,7 +1332,11 @@ document.addEventListener('keydown', e=>{
 });
 
 // ── BOOT ──
-init();
+async function boot() {
+  await Promise.all([loadConfigFromDB(), loadPrizesFromDB(), loadTicketsFromDB()]);
+  init();
+}
+boot();
 </script>
 </body>
 </html>
