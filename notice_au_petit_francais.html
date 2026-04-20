@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notice d'utilisation – Au Petit Français</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bleu:#1a2d6b;--rouge:#c0182a;--or:#c8973a;
+  --creme:#fdf8f0;--gris:#6b6b6b;--gris-clair:#f5f0e8;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Montserrat',sans-serif;background:var(--creme);color:#222;line-height:1.7}
+/* PAGE HEADER */
+.page-header{background:linear-gradient(160deg,var(--bleu) 0%,#0d1a40 100%);color:#fff;text-align:center;padding:48px 24px 36px;position:relative;overflow:hidden}
+.page-header::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--bleu) 33%,#fff 33%,#fff 66%,var(--rouge) 66%)}
+.page-header h1{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,5vw,2.6rem);font-weight:900;margin-bottom:8px}
+.page-header .sub{font-family:'Cormorant Garamond',serif;font-style:italic;opacity:.75;font-size:1.05rem;letter-spacing:1px}
+.page-header .version{display:inline-block;background:var(--or);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:1px;padding:4px 14px;border-radius:20px;margin-top:14px;text-transform:uppercase}
+/* LAYOUT */
+.container{max-width:860px;margin:0 auto;padding:32px 20px 60px}
+/* TOC */
+.toc{background:#fff;border-radius:16px;padding:24px 28px;margin-bottom:36px;box-shadow:0 2px 16px rgba(26,45,107,.1)}
+.toc h2{font-family:'Playfair Display',serif;color:var(--bleu);font-size:1.15rem;margin-bottom:14px}
+.toc ol{padding-left:20px}
+.toc li{margin-bottom:6px}
+.toc a{color:var(--bleu);text-decoration:none;font-size:.88rem;font-weight:500}
+.toc a:hover{color:var(--rouge)}
+/* SECTIONS */
+.section{background:#fff;border-radius:16px;padding:28px 28px 24px;margin-bottom:24px;box-shadow:0 2px 16px rgba(26,45,107,.08);scroll-margin-top:24px}
+.section-num{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;background:var(--rouge);color:#fff;border-radius:50%;font-weight:700;font-size:.9rem;margin-right:12px;flex-shrink:0}
+.section-title{font-family:'Playfair Display',serif;color:var(--bleu);font-size:1.3rem;font-weight:700;display:flex;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--gris-clair)}
+.section p{font-size:.9rem;color:#333;margin-bottom:12px}
+.section p:last-child{margin-bottom:0}
+/* STEPS */
+.steps{counter-reset:step}
+.step{display:flex;gap:14px;margin-bottom:14px;align-items:flex-start}
+.step-num{flex-shrink:0;width:28px;height:28px;background:var(--bleu);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;margin-top:2px}
+.step-body{flex:1}
+.step-body strong{color:var(--bleu);font-weight:600}
+.step-body p{font-size:.87rem;color:#444;margin-top:3px}
+/* TIPS */
+.tip{background:#f0f4ff;border-left:4px solid var(--bleu);border-radius:0 10px 10px 0;padding:12px 16px;margin:14px 0;font-size:.86rem;color:#333}
+.tip .tip-icon{font-size:1.1rem;margin-right:6px}
+.warn{background:#fff8e1;border-left:4px solid var(--or);border-radius:0 10px 10px 0;padding:12px 16px;margin:14px 0;font-size:.86rem;color:#444}
+.warn .tip-icon{font-size:1.1rem;margin-right:6px}
+/* TEMPLATE CARDS */
+.tpl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:16px 0}
+.tpl-card{border:2px solid #e8e0d0;border-radius:12px;padding:14px;text-align:center}
+.tpl-card .ti{font-size:2rem;display:block;margin-bottom:6px}
+.tpl-card .tn{font-weight:700;font-size:.85rem;color:var(--bleu);margin-bottom:3px}
+.tpl-card .td{font-size:.75rem;color:var(--gris)}
+.tpl-card .ta{font-size:.7rem;font-style:italic;color:var(--rouge);margin-top:6px;padding-top:6px;border-top:1px solid #eee}
+/* FEATURE TABLE */
+table{width:100%;border-collapse:collapse;font-size:.85rem;margin:14px 0}
+th{background:var(--bleu);color:#fff;padding:10px 14px;text-align:left;font-weight:600;font-size:.8rem;letter-spacing:.4px}
+td{padding:9px 14px;border-bottom:1px solid #eee;vertical-align:top}
+tr:nth-child(even) td{background:#fafafa}
+.badge-yes{background:#e8f5e9;color:#2e7d32;padding:2px 8px;border-radius:10px;font-size:.72rem;font-weight:700}
+.badge-admin{background:#e3f2fd;color:#1565c0;padding:2px 8px;border-radius:10px;font-size:.72rem;font-weight:700}
+/* KEYBOARD */
+.kbd{display:inline-block;background:#f0f0f0;border:1px solid #ccc;border-radius:5px;padding:2px 8px;font-family:monospace;font-size:.82rem;margin:0 2px}
+/* FOOTER */
+.page-footer{text-align:center;padding:24px;color:var(--gris);font-size:.78rem;border-top:1px solid #e0d8cc;margin-top:40px}
+.page-footer strong{color:var(--bleu)}
+@media print{
+  .page-header{padding:24px;break-after:avoid}
+  .section{break-inside:avoid;box-shadow:none;border:1px solid #ddd}
+  .toc{break-after:page}
+}
+@media(max-width:600px){
+  .container{padding:16px 14px 40px}
+  .section{padding:18px 16px}
+  .section-title{font-size:1.1rem}
+  .tpl-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>📋 Notice d'utilisation</h1>
+  <div class="sub">Carte numérique interactive — Au Petit Français</div>
+  <div class="version">Version 3 · Mars 2026</div>
+</div>
+
+<div class="container">
+
+<!-- TABLE DES MATIÈRES -->
+<div class="toc">
+  <h2>📑 Table des matières</h2>
+  <ol>
+    <li><a href="#s1">Présentation générale</a></li>
+    <li><a href="#s2">Naviguer dans la carte (clients)</a></li>
+    <li><a href="#s3">Changer la langue FR / ES</a></li>
+    <li><a href="#s4">Accès Administrateur (mot de passe)</a></li>
+    <li><a href="#s5">Gérer les produits — ajouter, modifier, supprimer</a></li>
+    <li><a href="#s6">Changer l'ordre des articles</a></li>
+    <li><a href="#s7">Mettre un produit en avant (⭐ À la une)</a></li>
+    <li><a href="#s8">Les Templates saisonniers avec animations</a></li>
+    <li><a href="#s9">Les rubriques Boissons et Glaces</a></li>
+    <li><a href="#s10">Changer le mot de passe administrateur</a></li>
+    <li><a href="#s11">Questions fréquentes & dépannage</a></li>
+    <li><a href="#s12">Tableau récapitulatif des fonctionnalités</a></li>
+  </ol>
+</div>
+
+<!-- 1 -->
+<div class="section" id="s1">
+  <div class="section-title"><span class="section-num">1</span>Présentation générale</div>
+  <p>La carte numérique d'<strong>Au Petit Français</strong> est un fichier HTML unique (<code>menu_au_petit_francais_v3.html</code>) qui fonctionne directement dans un navigateur web, sans connexion internet requise pour l'utilisation quotidienne (sauf pour charger les polices Google au premier lancement).</p>
+  <p>Elle est optimisée pour :</p>
+  <ul style="padding-left:20px;font-size:.88rem;color:#333;margin:10px 0">
+    <li style="margin-bottom:5px">📱 <strong>Téléphones</strong> (iOS Safari, Android Chrome)</li>
+    <li style="margin-bottom:5px">📟 <strong>Tablettes</strong> (iPad, Android tablette)</li>
+    <li style="margin-bottom:5px">💻 <strong>Ordinateurs</strong> (tous navigateurs modernes)</li>
+    <li style="margin-bottom:5px">🖨️ <strong>Impression</strong> (la notice peut être imprimée via le navigateur)</li>
+  </ul>
+  <div class="tip"><span class="tip-icon">💡</span><strong>Conseil :</strong> Pour un usage en boutique, ouvrez le fichier dans Chrome ou Safari et utilisez l'option "Ajouter à l'écran d'accueil" pour créer une icône comme une vraie application.</div>
+</div>
+
+<!-- 2 -->
+<div class="section" id="s2">
+  <div class="section-title"><span class="section-num">2</span>Naviguer dans la carte (pour les clients)</div>
+  <p>Les clients peuvent parcourir la carte de deux façons :</p>
+  <div class="steps">
+    <div class="step"><div class="step-num">A</div><div class="step-body"><strong>Onglets en haut de l'écran</strong><p>Appuyez sur un onglet (🥐 Français, 🫓 Colombien, ☕ Boissons, 🍦 Glaces, etc.) pour afficher la rubrique correspondante.</p></div></div>
+    <div class="step"><div class="step-num">B</div><div class="step-body"><strong>Glissement gauche / droite (swipe)</strong><p>Sur mobile ou tablette, glissez votre doigt horizontalement pour passer d'une rubrique à l'autre.</p></div></div>
+  </div>
+  <div class="tip"><span class="tip-icon">☕</span>L'onglet <strong>Boissons</strong> est divisé en 3 sous-sections : Boissons Chaudes / Boissons Froides / Sodas & Eau — faites défiler vers le bas pour tout voir.</div>
+</div>
+
+<!-- 3 -->
+<div class="section" id="s3">
+  <div class="section-title"><span class="section-num">3</span>Changer la langue FR / ES</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Bouton drapeau dans le header</strong><p>En haut de la page, appuyez sur le bouton <strong>🇪🇸 Español</strong> pour basculer toute la carte en espagnol.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Retour au français</strong><p>Appuyez sur <strong>🇫🇷 Français</strong> pour revenir en français.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Langue par défaut (Admin)</strong><p>Dans le panneau Admin → onglet ⚙️ Config, vous pouvez définir quelle langue s'affiche au chargement de la page.</p></div></div>
+  </div>
+  <div class="warn"><span class="tip-icon">⚠️</span>Les traductions en espagnol sont pré-remplies avec des propositions. Vous pouvez les personnaliser dans le panneau Admin pour chaque produit (champs avec bordure dorée = champs espagnol).</div>
+</div>
+
+<!-- 4 -->
+<div class="section" id="s4">
+  <div class="section-title"><span class="section-num">4</span>Accès Administrateur</div>
+  <p>Le bouton <strong>"Gérer la carte"</strong> est <strong>invisible</strong> pour les clients. Pour y accéder :</p>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Tapez 5 fois sur le logo</strong><p>Appuyez rapidement 5 fois de suite sur le logo "Au Petit Français" en haut de la page.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Fenêtre de mot de passe</strong><p>Une fenêtre s'ouvre et demande le mot de passe administrateur.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Saisissez le mot de passe</strong><p>Le mot de passe par défaut est : <kbd class="kbd">apf2024</kbd><br>Appuyez sur Entrée ou cliquez "Valider".</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Le bouton ⚙️ apparaît</strong><p>En bas à droite de l'écran, le bouton "Gérer la carte" est maintenant visible. Appuyez dessus pour ouvrir le panneau admin.</p></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-body"><strong>Se déconnecter</strong><p>Dans le panneau admin, appuyez sur 🔒 Déconnexion en haut à droite. Le bouton disparaît immédiatement.</p></div></div>
+  </div>
+  <div class="warn"><span class="tip-icon">🔐</span><strong>Important :</strong> Changez le mot de passe par défaut dès la première utilisation (voir section 10).</div>
+</div>
+
+<!-- 5 -->
+<div class="section" id="s5">
+  <div class="section-title"><span class="section-num">5</span>Gérer les produits</div>
+  <p>Une fois dans le panneau Admin, sélectionnez l'onglet de la rubrique à modifier (🥐 Français, 🫓 Colombien, ☕ B. Chaudes, etc.)</p>
+
+  <p><strong>Modifier un produit existant :</strong></p>
+  <div class="steps">
+    <div class="step"><div class="step-num">①</div><div class="step-body"><strong>Nom du produit</strong><p>Champ du haut (sans bordure) = nom en français. Champ avec <strong>bordure dorée</strong> = nom en espagnol.</p></div></div>
+    <div class="step"><div class="step-num">②</div><div class="step-body"><strong>Description</strong><p>Même principe : description FR (sans bordure) puis description ES (bordure dorée).</p></div></div>
+    <div class="step"><div class="step-num">③</div><div class="step-body"><strong>Prix</strong><p>Entrez le prix en <strong>COP (pesos colombiens)</strong>, sans les points ni les virgules. Exemple : <kbd class="kbd">14000</kbd> pour 14 000 COP. Pour un produit "sur demande", mettez <kbd class="kbd">0</kbd>.</p></div></div>
+    <div class="step"><div class="step-num">④</div><div class="step-body"><strong>Badge</strong><p>Choisissez un badge dans la liste : ✨ Nouveau / ⭐ Populaire / 🌿 Végé — ou laissez vide.</p></div></div>
+    <div class="step"><div class="step-num">⑤</div><div class="step-body"><strong>Disponibilité</strong><p>Le toggle "Dispo" permet de griser un produit épuisé sans le supprimer. Le produit apparaîtra barré sur la carte.</p></div></div>
+  </div>
+
+  <p style="margin-top:16px"><strong>Ajouter un nouveau produit :</strong></p>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Bouton + Ajouter un produit</strong><p>En bas de chaque rubrique, appuyez sur ce bouton. Un nouveau produit vide apparaît, que vous pouvez remplir.</p></div></div>
+  </div>
+
+  <p style="margin-top:16px"><strong>Supprimer un produit :</strong></p>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Icône 🗑️</strong><p>Appuyez sur la corbeille en haut à droite de la fiche produit. La suppression est immédiate (dans la session de modification).</p></div></div>
+  </div>
+
+  <div class="warn"><span class="tip-icon">⚠️</span><strong>N'oubliez pas !</strong> Toujours appuyer sur <strong>💾 Enregistrer les modifications</strong> en bas du panneau admin pour sauvegarder vos changements. Sans ça, tout est perdu à la fermeture.</div>
+</div>
+
+<!-- 6 -->
+<div class="section" id="s6">
+  <div class="section-title"><span class="section-num">6</span>Changer l'ordre des articles</div>
+  <p>Vous pouvez réordonner les produits dans chaque rubrique par simple glisser-déposer :</p>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Repérez l'icône ☰</strong><p>À gauche de chaque fiche produit dans l'admin, l'icône ☰ indique que vous pouvez la déplacer.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Cliquez et glissez (ordinateur)</strong><p>Maintenez le clic sur ☰ et déposez la fiche à la position souhaitée.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Sur mobile (tablette)</strong><p>Appuyez longuement sur la fiche entière et faites-la glisser à la position voulue.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Enregistrez</strong><p>Appuyez sur 💾 Enregistrer pour confirmer le nouvel ordre.</p></div></div>
+  </div>
+  <div class="tip"><span class="tip-icon">💡</span>L'ordre défini dans l'admin est exactement l'ordre affiché aux clients sur la carte.</div>
+</div>
+
+<!-- 7 -->
+<div class="section" id="s7">
+  <div class="section-title"><span class="section-num">7</span>Mettre un produit en avant (⭐ À la une)</div>
+  <p>Cette fonction permet de <strong>mettre en valeur un produit</strong> de trois façons simultanées :</p>
+  <ul style="padding-left:20px;font-size:.88rem;color:#333;margin:10px 0 14px">
+    <li style="margin-bottom:6px">🪟 <strong>Popup d'accueil</strong> : une fenêtre apparaît automatiquement à l'ouverture de la carte (une fois par session)</li>
+    <li style="margin-bottom:6px">🎉 <strong>Onglet Promos</strong> : le produit est automatiquement listé dans les promotions</li>
+    <li style="margin-bottom:6px">👨‍🍳 <strong>Onglet Chef</strong> : le produit apparaît également dans la sélection du chef</li>
+  </ul>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Ouvrez le panneau Admin</strong><p>Tapez 5 fois sur le logo → entrez le mot de passe.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Choisissez la rubrique</strong><p>Naviguez vers l'onglet de la catégorie du produit à mettre en avant.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Activez le toggle ⭐</strong><p>Dans la fiche produit, en bas, activez le toggle doré <strong>"Mettre en avant"</strong>. La case devient or quand c'est actif.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Enregistrez</strong><p>Appuyez sur 💾 Enregistrer. Le produit apparaîtra en popup au prochain chargement et dans les onglets Promos & Chef.</p></div></div>
+  </div>
+  <div class="tip"><span class="tip-icon">💡</span>Vous pouvez mettre plusieurs produits en avant. La popup affiche le premier de la liste. Les autres apparaissent dans les onglets Promos et Chef.</div>
+  <div class="warn"><span class="tip-icon">⚠️</span>Un produit marqué "Indisponible" n'apparaîtra pas dans la mise en avant, même si le toggle est activé.</div>
+</div>
+
+<!-- 8 -->
+<div class="section" id="s8">
+  <div class="section-title"><span class="section-num">8</span>Les Templates saisonniers avec animations</div>
+  <p>Les templates changent entièrement l'apparence de la carte <strong>et ajoutent des décorations animées</strong> adaptées à l'événement :</p>
+
+  <div class="tpl-grid">
+    <div class="tpl-card">
+      <span class="ti">🍞</span>
+      <div class="tn">Standard</div>
+      <div class="td">Style classique bleu-rouge-or</div>
+      <div class="ta">Toute l'année</div>
+    </div>
+    <div class="tpl-card" style="border-color:#1b4d1b">
+      <span class="ti">🎄</span>
+      <div class="tn">Noël</div>
+      <div class="td">Flocons ❄️ animés, étoiles scintillantes ⭐, sapins 🎅, étoile filante 💫</div>
+      <div class="ta">Décembre</div>
+    </div>
+    <div class="tpl-card" style="border-color:#3d1a00">
+      <span class="ti">✝️</span>
+      <div class="tn">Semaine Sainte</div>
+      <div class="td">Colombes 🕊️ volantes, bougies 🕯️ dorées, rayons de lumière, agneau 🐑</div>
+      <div class="ta">Pâques / Carême</div>
+    </div>
+    <div class="tpl-card" style="border-color:#6a0dad">
+      <span class="ti">🎂</span>
+      <div class="tn">Anniversaire</div>
+      <div class="td">Confettis 🎊 tombants, ballons 🎈 flottants, bougies animées 🕯️, cadeaux 🎁</div>
+      <div class="ta">Fêtes & Célébrations</div>
+    </div>
+    <div class="tpl-card" style="border-color:#0077b6">
+      <span class="ti">🌞</span>
+      <div class="tn">Été</div>
+      <div class="td">Bulles montantes 🌊, soleil 🌞, cocktails 🍹, papillons 🦋</div>
+      <div class="ta">Saison estivale</div>
+    </div>
+    <div class="tpl-card" style="border-color:#880e4f">
+      <span class="ti">💝</span>
+      <div class="tn">Saint-Valentin</div>
+      <div class="td">Cœurs ❤️ flottants, Cupidon 💘 traversant l'écran, anges 👼 scintillants</div>
+      <div class="ta">14 Février</div>
+    </div>
+  </div>
+
+  <p><strong>Comment changer de template :</strong></p>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Ouvrez le panneau Admin</strong><p>5 taps sur le logo → mot de passe</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Onglet 🎨 Templates</strong><p>Dans le panneau admin, appuyez sur l'onglet "🎨 Templates"</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Sélectionnez un template</strong><p>Appuyez sur la carte du template souhaité. Les animations démarrent <strong>immédiatement</strong> en prévisualisation.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Enregistrez</strong><p>Appuyez sur 💾 Enregistrer. Le template est mémorisé et s'appliquera à chaque ouverture de la carte.</p></div></div>
+  </div>
+  <div class="tip"><span class="tip-icon">🎨</span>Les décorations animées sont légères et n'affectent pas les performances sur téléphone ou tablette. Elles s'arrêtent automatiquement quand vous changez de template.</div>
+</div>
+
+<!-- 9 -->
+<div class="section" id="s9">
+  <div class="section-title"><span class="section-num">9</span>Rubriques Boissons et Glaces</div>
+
+  <p><strong>Boissons (3 sous-catégories) :</strong></p>
+  <ul style="padding-left:20px;font-size:.88rem;color:#333;margin:8px 0 14px">
+    <li style="margin-bottom:5px">☕ <strong>Boissons Chaudes</strong> — Gérer via Admin → onglet "☕ B. Chaudes"</li>
+    <li style="margin-bottom:5px">🥤 <strong>Boissons Froides</strong> — Gérer via Admin → onglet "🥤 B. Froides"</li>
+    <li style="margin-bottom:5px">🫧 <strong>Sodas & Eau</strong> — Gérer via Admin → onglet "🫧 Sodas"</li>
+  </ul>
+  <p>Les trois sous-catégories s'affichent sur la même page "Boissons", avec des titres séparateurs. L'ordre des articles dans chaque sous-catégorie est modifiable indépendamment.</p>
+
+  <p style="margin-top:14px"><strong>Glaces :</strong></p>
+  <p>L'onglet 🍦 Glaces est une rubrique complète et indépendante. Gérez-la via Admin → onglet "🍦 Glaces". Vous pouvez y ajouter tous les parfums, coupes, sorbets et desserts glacés.</p>
+
+  <div class="tip"><span class="tip-icon">➕</span><strong>Ajouter une nouvelle rubrique</strong> (ex : Snacks, Pâtisseries…) : cela nécessite une modification du fichier HTML. Contactez le développeur ou signalez-le dans les feedbacks Claude.</div>
+</div>
+
+<!-- 10 -->
+<div class="section" id="s10">
+  <div class="section-title"><span class="section-num">10</span>Changer le mot de passe administrateur</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Ouvrez le panneau Admin</strong><p>5 taps sur le logo → mot de passe actuel</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Onglet ⚙️ Config</strong><p>Appuyez sur l'onglet "⚙️ Config" dans le panneau admin.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Section "Mot de passe administrateur"</strong><p>Entrez le nouveau mot de passe dans le premier champ, confirmez-le dans le second.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Cliquez "Mettre à jour"</strong><p>Le nouveau mot de passe est sauvegardé dans le navigateur.</p></div></div>
+  </div>
+  <div class="warn"><span class="tip-icon">⚠️</span><strong>Notez bien votre mot de passe !</strong> S'il est perdu, le seul moyen de récupérer l'accès est de modifier le fichier HTML directement (changer la valeur <code>'apf2024'</code> dans le code).</div>
+  <div class="warn"><span class="tip-icon">🔒</span>Le mot de passe est stocké dans le navigateur local (<em>localStorage</em>). Il ne sera <strong>pas</strong> synchronisé si vous utilisez le fichier sur un autre appareil ou navigateur. Sur un autre appareil, le mot de passe est toujours <kbd class="kbd">apf2024</kbd> jusqu'à ce que vous le changiez depuis cet appareil.</div>
+</div>
+
+<!-- 11 -->
+<div class="section" id="s11">
+  <div class="section-title"><span class="section-num">11</span>Questions fréquentes & dépannage</div>
+
+  <p><strong>❓ La carte ne s'affiche pas correctement</strong></p>
+  <p style="margin-bottom:14px">Vérifiez que vous utilisez un navigateur moderne (Chrome, Safari, Firefox, Edge). Évitez Internet Explorer.</p>
+
+  <p><strong>❓ Les polices de caractères ne s'affichent pas bien</strong></p>
+  <p style="margin-bottom:14px">La carte utilise Google Fonts qui nécessite une connexion internet au premier chargement. Sans connexion, des polices de substitution s'affichent.</p>
+
+  <p><strong>❓ Mes modifications ne sont pas sauvegardées</strong></p>
+  <p style="margin-bottom:14px">Vérifiez que vous avez appuyé sur le bouton <strong>💾 Enregistrer les modifications</strong> AVANT de fermer le panneau admin.</p>
+
+  <p><strong>❓ Les données ont disparu après un effacement du cache</strong></p>
+  <p style="margin-bottom:14px">Les données sont stockées dans le <em>localStorage</em> du navigateur. Si le cache est vidé, les données par défaut sont restaurées. Pour éviter cela, vous pouvez copier le contenu du localStorage (option développeur du navigateur) ou travailler avec un fichier HTML modifié avec vos données intégrées.</p>
+
+  <p><strong>❓ Le logo ne s'affiche pas</strong></p>
+  <p style="margin-bottom:14px">Le fichier image <code>LOGO_008.png</code> doit se trouver dans le <strong>même dossier</strong> que le fichier HTML. Si le logo est absent, le nom "Au Petit FRANÇAIS" s'affiche automatiquement à la place.</p>
+
+  <p><strong>❓ Comment utiliser la carte sur un iPad en boutique ?</strong></p>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Ouvrez le fichier dans Safari</strong></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Appuyez sur le bouton Partager</strong> (icône carré avec flèche)</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><strong>"Sur l'écran d'accueil"</strong> — la carte devient une app !</div></div>
+  </div>
+
+  <p style="margin-top:14px"><strong>❓ Les animations sont trop lentes sur mon téléphone</strong></p>
+  <p>Repassez sur le template Standard pour désactiver toutes les animations.</p>
+</div>
+
+<!-- 12 -->
+<div class="section" id="s12">
+  <div class="section-title"><span class="section-num">12</span>Tableau récapitulatif des fonctionnalités</div>
+  <table>
+    <tr><th>Fonctionnalité</th><th>Accès client</th><th>Accès admin</th></tr>
+    <tr><td>Consulter la carte</td><td><span class="badge-yes">✅ Libre</span></td><td>—</td></tr>
+    <tr><td>Changer la langue FR/ES</td><td><span class="badge-yes">✅ Libre</span></td><td>—</td></tr>
+    <tr><td>Voir la popup "À la une"</td><td><span class="badge-yes">✅ Auto</span></td><td>—</td></tr>
+    <tr><td>Naviguer par onglets / swipe</td><td><span class="badge-yes">✅ Libre</span></td><td>—</td></tr>
+    <tr><td>Ajouter / modifier / supprimer un produit</td><td>—</td><td><span class="badge-admin">🔐 Admin</span></td></tr>
+    <tr><td>Changer l'ordre des articles</td><td>—</td><td><span class="badge-admin">🔐 Admin</span></td></tr>
+    <tr><td>Mettre un produit en avant (⭐)</td><td>—</td><td><span class="badge-admin">🔐 Admin</span></td></tr>
+    <tr><td>Activer / désactiver la bannière promo</td><td>—</td><td><span class="badge-admin">🔐 Admin</span></td></tr>
+    <tr><td>Marquer un produit indisponible</td><td>—</td><td><span class="badge-admin">🔐 Admin</span></td></tr>
+    <tr><td>Changer le template saisonnier</td><td>—</td><td><span class="badge-admin">🔐 Admin</span></td></tr>
+    <tr><td>Changer la langue par défaut</td><td>—</td><td><span class="badge-admin">🔐 Admin</span></td></tr>
+    <tr><td>Changer le mot de passe</td><td>—</td><td><span class="badge-admin">🔐 Admin</span></td></tr>
+    <tr><td>Ajouter des traductions ES aux produits</td><td>—</td><td><span class="badge-admin">🔐 Admin</span></td></tr>
+  </table>
+</div>
+
+</div><!-- /container -->
+
+<div class="page-footer">
+  <strong>Au Petit Français</strong> · Notice d'utilisation v3 · Mars 2026<br>
+  Puerto Colombia, Atlántico, Colombia<br>
+  <span style="opacity:.5">Créé avec ❤️ par Claude (Anthropic)</span>
+</div>
+
+</body>
+</html>
