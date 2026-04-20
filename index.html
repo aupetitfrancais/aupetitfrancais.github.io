@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Au Petit Français — Boulangerie Artisanale · Barranquilla</title>
+<meta name="description" content="La première boulangerie artisanale française de Barranquilla. Baguettes, croissants, pâtisseries — Ouverture prochaine.">
+<meta property="og:title" content="Au Petit Français — Barranquilla">
+<meta property="og:description" content="Un rincón de París en el corazón de Barranquilla. Apertura próximamente.">
+<meta property="og:image" content="https://i.imgur.com/E73t0rp.png">
+<link rel="icon" href="https://i.imgur.com/E73t0rp.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F8F3EA;
+    --cream-dark: #EFE7D3;
+    --noir: #1A1612;
+    --or: #C9A84C;
+    --or-light: #E8D5A3;
+    --or-pale: #F5EDD6;
+    --text: #2C2318;
+    --muted: #7A6A56;
+    --white: #FDFAF5;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    font-weight: 300;
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(248, 243, 234, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 0.5px solid var(--or-light);
+  }
+  .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-brand img { height: 40px; width: 40px; border-radius: 50%; object-fit: cover; }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 600;
+    letter-spacing: 0.04em; color: var(--noir);
+  }
+  .nav-logo span { color: var(--or); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 12px; font-weight: 400; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--or); }
+  .lang-toggle {
+    font-size: 11px; letter-spacing: 0.1em; font-weight: 500;
+    color: var(--muted); cursor: pointer;
+    border: 0.5px solid var(--or-light);
+    padding: 4px 10px; border-radius: 20px;
+    transition: all 0.2s; background: none;
+  }
+  .lang-toggle:hover { border-color: var(--or); color: var(--or); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 7rem 2rem 5rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 80%, rgba(201,168,76,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 80% 20%, rgba(201,168,76,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-avatar {
+    width: 90px; height: 90px;
+    border-radius: 50%; object-fit: cover;
+    border: 2px solid var(--or-light);
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.7s ease both;
+  }
+  .hero-badge {
+    display: inline-block;
+    font-size: 10px; letter-spacing: 0.2em; font-weight: 500;
+    text-transform: uppercase; color: var(--or);
+    border: 0.5px solid var(--or); padding: 5px 16px;
+    border-radius: 20px; margin-bottom: 2rem;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 300; line-height: 1.0;
+    letter-spacing: -0.01em; color: var(--noir);
+    margin-bottom: 0.3rem;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .hero h1 em { font-style: italic; color: var(--or); }
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-weight: 300; font-style: italic;
+    color: var(--muted); margin-bottom: 1rem;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .hero-location {
+    font-size: 11px; letter-spacing: 0.18em; font-weight: 500;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 3rem;
+    animation: fadeUp 0.8s 0.35s ease both;
+  }
+  .hero-location::before, .hero-location::after {
+    content: '——'; margin: 0 0.8rem; color: var(--or-light);
+  }
+  .hero-divider {
+    width: 40px; height: 1px; background: var(--or);
+    margin: 0 auto 3rem;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+  .hero-desc {
+    max-width: 520px;
+    font-size: 15px; font-weight: 300; line-height: 1.9;
+    color: var(--muted); margin-bottom: 3rem;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+  .hero-ctas {
+    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    animation: fadeUp 0.8s 0.55s ease both;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--noir); color: var(--or-light);
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 14px 28px;
+    border: none; border-radius: 2px; cursor: pointer;
+    text-decoration: none; transition: all 0.25s;
+  }
+  .btn-primary:hover { background: var(--or); color: var(--noir); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: var(--noir);
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 14px 28px;
+    border: 0.5px solid var(--noir); border-radius: 2px; cursor: pointer;
+    text-decoration: none; transition: all 0.25s;
+  }
+  .btn-secondary:hover { border-color: var(--or); color: var(--or); }
+  .ornament {
+    display: flex; align-items: center; gap: 1rem;
+    justify-content: center; margin: 2rem 0; color: var(--or);
+    animation: fadeUp 0.8s 0.6s ease both;
+  }
+  .ornament-line { flex: 0 0 60px; height: 0.5px; background: var(--or-light); }
+
+  /* ── STRIP ── */
+  .coming-strip {
+    background: var(--noir); padding: 1.2rem 2rem; text-align: center;
+  }
+  .coming-strip p {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--or);
+  }
+  .coming-strip span { color: rgba(255,255,255,0.35); margin: 0 0.8rem; }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 2rem; }
+  .container { max-width: 1000px; margin: 0 auto; }
+  .section-label {
+    font-size: 10px; letter-spacing: 0.25em; font-weight: 500;
+    text-transform: uppercase; color: var(--or);
+    display: block; margin-bottom: 1rem; text-align: center;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300; text-align: center;
+    line-height: 1.15; color: var(--noir); margin-bottom: 1rem;
+  }
+  .section-title em { font-style: italic; color: var(--or); }
+  .section-intro {
+    text-align: center; max-width: 500px; margin: 0 auto 4rem;
+    color: var(--muted); font-size: 15px; line-height: 1.9;
+  }
+
+  /* ── CONCEPT ── */
+  .concept-section { background: var(--white); }
+  .concept-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  }
+  .concept-card {
+    background: var(--cream); padding: 2.5rem 2rem; text-align: center;
+    transition: background 0.3s;
+  }
+  .concept-card:hover { background: var(--or-pale); }
+  .concept-icon { font-size: 1.8rem; margin-bottom: 1.2rem; display: block; }
+  .concept-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 600; color: var(--noir); margin-bottom: 0.6rem;
+  }
+  .concept-card p { font-size: 13px; color: var(--muted); line-height: 1.8; }
+
+  /* ── MENU ── */
+  .menu-section { background: var(--cream); }
+  .menu-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5px;
+  }
+  .menu-item {
+    background: var(--white); padding: 2rem 1.5rem;
+    border-bottom: 2px solid transparent; transition: border-color 0.25s; cursor: default;
+  }
+  .menu-item:hover { border-bottom-color: var(--or); }
+  .menu-emoji { font-size: 1.5rem; margin-bottom: 0.8rem; display: block; }
+  .menu-item h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; font-weight: 600; color: var(--noir); margin-bottom: 0.3rem;
+  }
+  .menu-item p { font-size: 12px; color: var(--muted); }
+  .menu-note {
+    text-align: center; margin-top: 3rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 1.1rem; color: var(--muted);
+  }
+
+  /* ── COUNTDOWN ── */
+  .countdown-section { background: var(--noir); }
+  .countdown-section .section-title { color: var(--cream); }
+  .countdown-section .section-intro { color: rgba(248,243,234,0.5); }
+  .countdown-boxes {
+    display: flex; justify-content: center; gap: 2rem;
+    flex-wrap: wrap; margin-bottom: 4rem;
+  }
+  .countdown-box { text-align: center; min-width: 80px; }
+  .countdown-num {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 7vw, 5rem);
+    font-weight: 300; color: var(--or); line-height: 1;
+  }
+  .countdown-unit {
+    display: block; font-size: 9px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: rgba(248,243,234,0.35); margin-top: 0.4rem;
+  }
+  .countdown-sep {
+    font-family: 'Cormorant Garamond', serif; font-size: 3rem;
+    font-weight: 300; color: var(--or); align-self: flex-start;
+    margin-top: 0.5rem; line-height: 1.2;
+  }
+
+  /* ── SIGNUP ── */
+  .signup-section { background: var(--or-pale); }
+  .signup-card {
+    max-width: 580px; margin: 0 auto;
+    background: var(--white); border: 0.5px solid var(--or-light);
+    border-radius: 2px; padding: 3rem; text-align: center;
+  }
+  .signup-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 300; color: var(--noir); margin-bottom: 0.5rem;
+  }
+  .signup-card .sub { font-size: 13px; color: var(--muted); margin-bottom: 2rem; }
+  .input-group { display: flex; gap: 0; margin-bottom: 1rem; }
+  .input-group input {
+    flex: 1; padding: 13px 16px;
+    background: var(--cream); border: 0.5px solid var(--or-light);
+    border-right: none; border-radius: 2px 0 0 2px;
+    font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300;
+    color: var(--text); outline: none; transition: border-color 0.2s;
+  }
+  .input-group input:focus { border-color: var(--or); }
+  .input-group input::placeholder { color: var(--muted); }
+  .input-group button {
+    padding: 13px 20px; background: var(--noir); color: var(--or-light);
+    border: none; border-radius: 0 2px 2px 0;
+    font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer;
+    transition: background 0.2s; white-space: nowrap;
+  }
+  .input-group button:hover { background: var(--or); color: var(--noir); }
+  .divider-or {
+    display: flex; align-items: center; gap: 1rem;
+    font-size: 11px; letter-spacing: 0.1em; color: var(--or-light);
+    margin: 1.5rem 0;
+  }
+  .divider-or::before, .divider-or::after { content: ''; flex: 1; height: 0.5px; background: var(--or-light); }
+  .whatsapp-btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; padding: 14px; background: #25D366; color: white;
+    border: none; border-radius: 2px;
+    font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
+    transition: opacity 0.2s; text-decoration: none;
+  }
+  .whatsapp-btn:hover { opacity: 0.85; }
+  .privacy { font-size: 11px; color: var(--muted); margin-top: 1.2rem; }
+  .success-msg {
+    display: none; background: #F0FAF4; border: 0.5px solid #6DC78A;
+    border-radius: 2px; padding: 12px 16px;
+    font-size: 13px; color: #2A6B40; margin-top: 1rem;
+  }
+  .success-msg.show { display: block; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #120F0A; color: rgba(248,243,234,0.5);
+    padding: 3rem 2rem; text-align: center;
+  }
+  .footer-brand {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    margin-bottom: 1rem;
+  }
+  .footer-brand img { height: 44px; width: 44px; border-radius: 50%; object-fit: cover; opacity: 0.85; }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 300; color: var(--cream);
+  }
+  .footer-logo span { color: var(--or); }
+  .footer-social {
+    display: flex; justify-content: center; gap: 1.5rem;
+    margin: 1.5rem 0; list-style: none;
+  }
+  .footer-social a {
+    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(248,243,234,0.35); text-decoration: none; transition: color 0.2s;
+  }
+  .footer-social a:hover { color: var(--or); }
+  .footer-copy {
+    font-size: 11px; margin-top: 1.5rem;
+    border-top: 0.5px solid rgba(255,255,255,0.06); padding-top: 1.5rem;
+  }
+
+  /* ── LANG ── */
+  .es { display: block; } .fr { display: none; }
+  body.lang-fr .es { display: none; } body.lang-fr .fr { display: block; }
+  .ines { display: inline; } .infr { display: none; }
+  body.lang-fr .ines { display: none; } body.lang-fr .infr { display: inline; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 700px) {
+    nav { padding: 1rem 1.2rem; }
+    .nav-links { display: none; }
+    .concept-grid { grid-template-columns: 1fr; }
+    .countdown-boxes { gap: 1rem; }
+    .signup-card { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">
+    <img src="https://i.imgur.com/E73t0rp.png" alt="Au Petit Français logo">
+    <span class="nav-logo">Au <span>Petit</span> Français</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#concepto"><span class="ines">Concepto</span><span class="infr">Concept</span></a></li>
+    <li><a href="#productos"><span class="ines">Productos</span><span class="infr">Produits</span></a></li>
+    <li><a href="#contacto"><span class="ines">Contacto</span><span class="infr">Contact</span></a></li>
+  </ul>
+  <button class="lang-toggle" onclick="toggleLang()" id="langBtn">FR</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <img class="hero-avatar" src="https://i.imgur.com/U2PLQd5.png" alt="Au Petit Français">
+  <span class="hero-badge">
+    <span class="ines">Próxima apertura · Barranquilla</span>
+    <span class="infr">Ouverture prochaine · Barranquilla</span>
+  </span>
+  <h1>Au <em>Petit</em><br>Français</h1>
+  <p class="hero-sub">Boulangerie &amp; Pâtisserie Artisanale</p>
+  <p class="hero-location">Barranquilla, Colombia</p>
+  <div class="hero-divider"></div>
+  <p class="hero-desc">
+    <span class="es">Un rincón de París en el corazón de Barranquilla. Pan artesanal, croissants recién horneados y la auténtica pastelería francesa, elaborados cada día con amor y savoir-faire.</span>
+    <span class="fr">Un coin de Paris au cœur de Barranquilla. Pain artisanal, croissants fraîchement sortis du four et pâtisseries françaises authentiques, préparés chaque jour avec amour et savoir-faire.</span>
+  </p>
+  <div class="hero-ctas">
+    <a class="btn-primary" href="#contacto">
+      <span class="ines">Ser el primero en saber</span>
+      <span class="infr">Être parmi les premiers</span>
+    </a>
+    <a class="btn-secondary" href="#concepto">
+      <span class="ines">Descubrir el proyecto</span>
+      <span class="infr">Découvrir le projet</span>
+    </a>
+  </div>
+  <div class="ornament" style="margin-top:3rem;">
+    <div class="ornament-line"></div>
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 1 L9 17 M1 9 L17 9" stroke="#C9A84C" stroke-width="0.8"/>
+      <circle cx="9" cy="9" r="3" stroke="#C9A84C" stroke-width="0.8" fill="none"/>
+    </svg>
+    <div class="ornament-line"></div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="coming-strip">
+  <p>
+    <span class="ines">Próximamente en Barranquilla</span>
+    <span class="infr">Bientôt à Barranquilla</span>
+    <span>·</span>
+    <span class="ines">Únete a nuestra lista de espera</span>
+    <span class="infr">Rejoignez notre liste d'attente</span>
+    <span>·</span>
+    aupetitfrancais.com
+  </p>
+</div>
+
+<!-- CONCEPTO -->
+<section class="concept-section" id="concepto">
+  <div class="container">
+    <span class="section-label reveal"><span class="ines">El Concepto</span><span class="infr">Le Concept</span></span>
+    <h2 class="section-title reveal"><span class="ines">Un viaje a <em>París</em></span><span class="fr">Un voyage à <em>Paris</em></span></h2>
+    <p class="section-intro reveal">
+      <span class="es">Más que una panadería — un espacio donde los aromas, los sabores y la atmósfera te transportan a Francia desde el primer momento.</span>
+      <span class="fr">Plus qu'une boulangerie — un espace où les arômes, les saveurs et l'atmosphère vous transportent en France dès le premier instant.</span>
+    </p>
+    <div class="concept-grid reveal">
+      <div class="concept-card">
+        <span class="concept-icon">🥐</span>
+        <h3><span class="ines">Autenticidad</span><span class="infr">Authenticité</span></h3>
+        <p><span class="es">Recetas francesas originales, ingredientes cuidadosamente seleccionados y técnicas artesanales transmitidas de generación en generación.</span><span class="fr">Recettes françaises originales, ingrédients soigneusement sélectionnés et techniques artisanales transmises de génération en génération.</span></p>
+      </div>
+      <div class="concept-card">
+        <span class="concept-icon">☕</span>
+        <h3><span class="ines">Ambiente</span><span class="infr">Ambiance</span></h3>
+        <p><span class="es">Terraza cubierta y climatizada, decoración parisina, música francesa. Un instante de evasión en el corazón de Barranquilla.</span><span class="fr">Terrasse couverte et climatisée, décoration parisienne, musique française. Un instant d'évasion au cœur de Barranquilla.</span></p>
+      </div>
+      <div class="concept-card">
+        <span class="concept-icon">🇫🇷</span>
+        <h3>Savoir-faire</h3>
+        <p><span class="es">Detrás de cada producto, el rigor y la pasión de la panadería y pastelería francesa — elaborados frescos cada mañana.</span><span class="fr">Derrière chaque produit, la rigueur et la passion de la boulangerie-pâtisserie française — préparés frais chaque matin.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTOS -->
+<section class="menu-section" id="productos">
+  <div class="container">
+    <span class="section-label reveal"><span class="ines">Nuestros Productos</span><span class="infr">Nos Produits</span></span>
+    <h2 class="section-title reveal"><span class="ines">Elaborado cada <em>mañana</em></span><span class="fr">Préparé chaque <em>matin</em></span></h2>
+    <p class="section-intro reveal">
+      <span class="es">Una selección de las joyas de la panadería y pastelería francesa, más especialidades colombianas para todos los gustos.</span>
+      <span class="fr">Une sélection des joyaux de la boulangerie-pâtisserie française, plus des spécialités colombiennes pour tous les goûts.</span>
+    </p>
+    <div class="menu-grid reveal">
+      <div class="menu-item">
+        <span class="menu-emoji">🥖</span>
+        <h4>Baguette Tradition</h4>
+        <p><span class="es">Crujiente por fuera, suave por dentro</span><span class="fr">Croustillante dehors, moelleuse dedans</span></p>
+      </div>
+      <div class="menu-item">
+        <span class="menu-emoji">🥐</span>
+        <h4>Croissant au Beurre</h4>
+        <p><span class="es">Hojaldrado, mantecoso, irresistible</span><span class="fr">Feuilleté, beurré, irrésistible</span></p>
+      </div>
+      <div class="menu-item">
+        <span class="menu-emoji">🍰</span>
+        <h4>Pâtisseries</h4>
+        <p><span class="es">Tartas, éclairs, macarons y más</span><span class="fr">Tartes, éclairs, macarons et plus</span></p>
+      </div>
+      <div class="menu-item">
+        <span class="menu-emoji">🍞</span>
+        <h4>Pains Spéciaux</h4>
+        <p><span class="es">Centeno, nuez, aceitunas, integral</span><span class="fr">Seigle, noix, olives, complet</span></p>
+      </div>
+      <div class="menu-item">
+        <span class="menu-emoji">🧇</span>
+        <h4><span class="ines">Desayuno</span><span class="infr">Petit-déjeuner</span></h4>
+        <p><span class="es">Fórmulas completas petit-déjeuner</span><span class="fr">Formules complètes du matin</span></p>
+      </div>
+      <div class="menu-item">
+        <span class="menu-emoji">🍫</span>
+        <h4>Pain au Chocolat</h4>
+        <p><span class="es">El clásico favorito de todos</span><span class="fr">Le classique préféré de tous</span></p>
+      </div>
+    </div>
+    <p class="menu-note reveal">
+      <span class="es">El menú completo — pronto disponible</span>
+      <span class="fr">La carte complète — bientôt disponible</span>
+    </p>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+<section class="countdown-section">
+  <div class="container" style="text-align:center;">
+    <span class="section-label reveal" style="color:var(--or);">
+      <span class="ines">Estamos preparando algo especial</span>
+      <span class="infr">Nous préparons quelque chose de spécial</span>
+    </span>
+    <h2 class="section-title reveal" style="color:var(--cream);">
+      <span class="ines"><em>Apertura</em> próximamente</span>
+      <span class="fr"><em>Ouverture</em> prochainement</span>
+    </h2>
+    <p class="section-intro reveal">
+      <span class="es">Barranquilla tendrá pronto su primera boulangerie artesanal francesa. Sé el primero en descubrirla.</span>
+      <span class="fr">Barranquilla aura bientôt sa première boulangerie artisanale française. Soyez parmi les premiers à la découvrir.</span>
+    </p>
+    <div class="countdown-boxes reveal">
+      <div class="countdown-box"><span class="countdown-num" id="cd-days">--</span><span class="countdown-unit"><span class="ines">Días</span><span class="infr">Jours</span></span></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-box"><span class="countdown-num" id="cd-hrs">--</span><span class="countdown-unit"><span class="ines">Horas</span><span class="infr">Heures</span></span></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-box"><span class="countdown-num" id="cd-min">--</span><span class="countdown-unit"><span class="ines">Minutos</span><span class="infr">Minutes</span></span></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-box"><span class="countdown-num" id="cd-sec">--</span><span class="countdown-unit"><span class="ines">Segundos</span><span class="infr">Secondes</span></span></div>
+    </div>
+    <p style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(248,243,234,0.3);" class="reveal">
+      <span class="es">Fecha exacta por confirmar · Únete para ser informado primero</span>
+      <span class="fr">Date exacte à confirmer · Rejoignez-nous pour être informé en premier</span>
+    </p>
+  </div>
+</section>
+
+<!-- SIGNUP -->
+<section class="signup-section" id="contacto">
+  <div class="container">
+    <span class="section-label reveal"><span class="ines">Lista de espera</span><span class="infr">Liste d'attente</span></span>
+    <h2 class="section-title reveal"><span class="ines">Sé el <em>primero</em> en saberlo</span><span class="fr">Soyez <em>parmi</em> les premiers</span></h2>
+    <p class="section-intro reveal">
+      <span class="es">Regístrate para recibir la fecha de apertura, ofertas exclusivas del primer día y noticias del proyecto.</span>
+      <span class="fr">Inscrivez-vous pour recevoir la date d'ouverture, les offres exclusives du premier jour et les nouvelles du projet.</span>
+    </p>
+    <div class="signup-card reveal">
+      <h3><span class="ines">Apúntate ahora</span><span class="infr">Inscrivez-vous maintenant</span></h3>
+      <p class="sub">
+        <span class="es">Recibirás un mensaje el día de nuestra apertura</span>
+        <span class="fr">Vous recevrez un message le jour de notre ouverture</span>
+      </p>
+      <div class="input-group">
+        <input type="email" id="emailInput" placeholder="tu@email.com">
+        <button onclick="handleEmailSubmit()"><span class="ines">Apuntarme</span><span class="infr">S'inscrire</span></button>
+      </div>
+      <div class="success-msg" id="emailSuccess">
+        ✓ <span class="es">¡Genial! Te avisaremos muy pronto.</span><span class="fr">Parfait ! Nous vous préviendrons très bientôt.</span>
+      </div>
+      <div class="divider-or">
+        <span class="es">o únete por WhatsApp</span>
+        <span class="fr">ou rejoignez par WhatsApp</span>
+      </div>
+      <a class="whatsapp-btn" href="https://wa.me/573207818077?text=Hola%2C%20quiero%20saber%20sobre%20la%20apertura%20de%20Au%20Petit%20Fran%C3%A7ais%20%F0%9F%A5%90" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.556 4.118 1.528 5.85L0 24l6.335-1.508A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.366l-.359-.213-3.722.976.993-3.632-.234-.374A9.818 9.818 0 012.182 12C2.182 6.574 6.574 2.182 12 2.182S21.818 6.574 21.818 12 17.426 21.818 12 21.818z"/></svg>
+        <span class="ines">Unirme por WhatsApp</span>
+        <span class="infr">Rejoindre par WhatsApp</span>
+      </a>
+      <p class="privacy">
+        <span class="es">Sin spam. Solo la fecha de apertura y ofertas exclusivas de lanzamiento.</span>
+        <span class="fr">Pas de spam. Uniquement la date d'ouverture et les offres exclusives de lancement.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <img src="https://i.imgur.com/R1e8g2Z.png" alt="Au Petit Français">
+    <span class="footer-logo">Au <span>Petit</span> Français</span>
+  </div>
+  <p style="font-size:12px;letter-spacing:0.08em;">Barranquilla, Colombia · aupetitfrancais.com</p>
+  <ul class="footer-social">
+    <li><a href="https://www.facebook.com/aupetitfrancais" target="_blank">Facebook</a></li>
+    <li><a href="https://www.instagram.com/aupetitfrancais" target="_blank">Instagram</a></li>
+    <li><a href="https://www.tiktok.com/@aupetitfrancais" target="_blank">TikTok</a></li>
+    <li><a href="https://wa.me/573207818077" target="_blank">WhatsApp</a></li>
+    <li><a href="mailto:contact@aupetitfrancais.com">contact@aupetitfrancais.com</a></li>
+  </ul>
+  <p class="footer-copy">© 2026 Au Petit Français · <span class="ines">Todos los derechos reservados</span><span class="infr">Tous droits réservés</span></p>
+</footer>
+
+<script>
+  function toggleLang() {
+    const btn = document.getElementById('langBtn');
+    if (document.body.classList.contains('lang-fr')) {
+      document.body.classList.remove('lang-fr');
+      btn.textContent = 'FR';
+    } else {
+      document.body.classList.add('lang-fr');
+      btn.textContent = 'ES';
+    }
+  }
+
+  function handleEmailSubmit() {
+    const input = document.getElementById('emailInput');
+    const success = document.getElementById('emailSuccess');
+    if (input.value && input.value.includes('@')) {
+      success.classList.add('show');
+      input.value = '';
+      setTimeout(() => success.classList.remove('show'), 5000);
+    } else {
+      input.style.borderColor = '#E24B4A';
+      setTimeout(() => { input.style.borderColor = ''; }, 1500);
+    }
+  }
+
+  // Countdown — target date (update once local found)
+  const target = new Date('2026-10-01T09:00:00');
+  function updateCountdown() {
+    const diff = target - new Date();
+    if (diff <= 0) {
+      ['cd-days','cd-hrs','cd-min','cd-sec'].forEach(id => document.getElementById(id).textContent = '00');
+      return;
+    }
+    document.getElementById('cd-days').textContent = String(Math.floor(diff/86400000)).padStart(2,'0');
+    document.getElementById('cd-hrs').textContent = String(Math.floor((diff%86400000)/3600000)).padStart(2,'0');
+    document.getElementById('cd-min').textContent = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+    document.getElementById('cd-sec').textContent = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
